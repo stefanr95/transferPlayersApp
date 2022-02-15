@@ -23,4 +23,5 @@ public interface KorisnikService {
     Optional<Korisnik> findbyKorisnickoIme(String korisnickoIme);
 
     boolean changePassword(Long id, KorisnikPromenaLozinkeDto korisnikPromenaLozinkeDto);
+    
 }

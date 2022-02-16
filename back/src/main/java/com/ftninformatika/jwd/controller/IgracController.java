@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,7 +23,7 @@ import com.ftninformatika.jwd.web.dto.IgracDTO;
 @RestController
 @RequestMapping(value = "/api/igraci", produces = MediaType.APPLICATION_JSON_VALUE)
 public class IgracController {
-	
+
 	@Autowired
 	private IgracService igracService;
 
@@ -31,23 +32,36 @@ public class IgracController {
 
 	@Autowired
 	private IgracToIgracDto toIgracDto;
-	
+
 	//preuzimanje svih igraca PAGINIRANO
-		@GetMapping
-		public ResponseEntity<List<IgracDTO>> getAll(
-				@RequestParam (required = false) String pozicija,
-				@RequestParam (required = false) Long klubId,
-				@RequestParam (value = "pageNo", defaultValue = "0") int pageNo) {
+	@GetMapping
+	public ResponseEntity<List<IgracDTO>> getAll(
+			@RequestParam (required = false) String pozicija,
+			@RequestParam (required = false) Long klubId,
+			@RequestParam (value = "pageNo", defaultValue = "0") int pageNo) {
 
 
-			Page<Igrac> page = igracService.findAll(pozicija, klubId, pageNo);
+		Page<Igrac> page = igracService.findAll(pozicija, klubId, pageNo);
 
-			HttpHeaders headers = new HttpHeaders();
-			headers.add("Total-Pages", Integer.toString(page.getTotalPages()));
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Total-Pages", Integer.toString(page.getTotalPages()));
 
-			return new ResponseEntity<>(toIgracDto.convert(page.getContent()), headers, HttpStatus.OK);
+		return new ResponseEntity<>(toIgracDto.convert(page.getContent()), headers, HttpStatus.OK);
 
+	}
+
+	//preuzimanje igraca po zadatom ID
+	@GetMapping("/{id}")
+	public ResponseEntity<IgracDTO> getOne(@PathVariable Long id) {
+		Igrac igrac = igracService.findOne(id);
+
+		if(igrac != null) {
+			return new ResponseEntity<>(toIgracDto.convert(igrac), HttpStatus.OK);
+		} else {
+
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);	
 		}
+	}
 
 
 

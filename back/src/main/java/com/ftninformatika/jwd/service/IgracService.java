@@ -8,4 +8,6 @@ public interface IgracService {
 
 	Page<Igrac> findAll(String pozicija, Long klubId, int pageNo);
 
+	Igrac findOne(Long id);
+
 }

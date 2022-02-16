@@ -7,5 +7,7 @@ import com.ftninformatika.jwd.model.Igrac;
 
 @Repository
 public interface IgracRepository extends JpaRepository<Igrac, Long> {
+	
+	Igrac findOneById(Long id);
 
 }

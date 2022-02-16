@@ -10,10 +10,10 @@ import com.ftninformatika.jwd.service.IgracService;
 
 @Service
 public class JpaIgracService implements IgracService {
-	
+
 	@Autowired
 	private IgracRepository igracRepository;
-	
+
 	@Override
 	public Igrac findOne(Long id) {
 		return igracRepository.findOneById(id);
@@ -21,8 +21,14 @@ public class JpaIgracService implements IgracService {
 
 	@Override
 	public Page<Igrac> findAll(String pozicija, Long klubId, int pageNo) {
-		
+
 		return null;
 	}
+
+	@Override
+	public Igrac save(Igrac igrac) {
+		return igracRepository.save(igrac);
+	}
+
 
 }

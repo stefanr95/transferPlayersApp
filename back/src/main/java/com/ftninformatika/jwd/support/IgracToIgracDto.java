@@ -15,7 +15,7 @@ public class IgracToIgracDto implements Converter<Igrac, IgracDTO>{
 
 	@Autowired
 	private KlubToKlubDto toKlubDto;
-	
+
 	@Override
 	public IgracDTO convert(Igrac igrac) {
 		IgracDTO igracDTO = new IgracDTO();
@@ -26,18 +26,18 @@ public class IgracToIgracDto implements Converter<Igrac, IgracDTO>{
 		igracDTO.setRodjenje(igrac.getRodjenje().toString());
 		igracDTO.setProdaja(igrac.isProdaja());
 		igracDTO.setKlubDTO(toKlubDto.convert(igrac.getKlub()));
-		
+
 		return igracDTO;
 	}
-	
-	
+
+
 	public List<IgracDTO> convert(List<Igrac> igraci) {
 		List<IgracDTO> igracDTO = new ArrayList<>();
-		
+
 		for (Igrac igrac : igraci) {
 			igracDTO.add(convert(igrac));
 		}
-		
+
 		return igracDTO;
 	}
 }

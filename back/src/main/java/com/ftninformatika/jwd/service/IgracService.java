@@ -10,4 +10,6 @@ public interface IgracService {
 
 	Igrac findOne(Long id);
 
+	Igrac save(Igrac igrac);
+
 }

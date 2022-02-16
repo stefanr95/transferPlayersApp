@@ -18,20 +18,20 @@ public class IgracDtoToIgrac implements Converter<IgracDTO, Igrac>{
 
 	@Autowired
 	private IgracService igracService;
-	
+
 	@Autowired
 	private KlubService klubService;
-	
+
 	@Override
 	public Igrac convert(IgracDTO dto) {
 		Igrac igrac;
-		
+
 		if(dto.getId() == null) {
 			igrac = new Igrac();
 		} else {
 			igrac = igracService.findOne(dto.getId());
 		}
-		
+
 		if(igrac != null) {
 			igrac.setImeIprezime(dto.getImeIprezime());
 			igrac.setPozicija(dto.getPozicija());
@@ -39,16 +39,16 @@ public class IgracDtoToIgrac implements Converter<IgracDTO, Igrac>{
 			igrac.setRodjenje(getLocalDate(dto.getRodjenje()));
 			igrac.setProdaja(dto.isProdaja());
 			igrac.setKlub(klubService.findOne(dto.getKlubDTO().getId()));	
-			
+
 		}
-		
+
 		return igrac;
 	}
 
 	private LocalDate getLocalDate(String datumTransfer) throws DateTimeParseException {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate datum = LocalDate.parse(datumTransfer, formatter);
-        return datum;
-    }
-	
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDate datum = LocalDate.parse(datumTransfer, formatter);
+		return datum;
+	}
+
 }

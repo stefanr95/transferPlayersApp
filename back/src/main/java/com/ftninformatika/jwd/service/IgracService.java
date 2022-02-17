@@ -12,4 +12,8 @@ public interface IgracService {
 
 	Igrac save(Igrac igrac);
 
+	Igrac delete(Long id);
+
+	Igrac update(Igrac igrac);
+
 }

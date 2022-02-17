@@ -11,9 +11,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -81,6 +83,39 @@ public class IgracController {
 		Igrac sacuvanIgrac= igracService.save(igrac);
 
 		return new ResponseEntity<>(toIgracDto.convert(sacuvanIgrac), HttpStatus.CREATED);
+	}
+	
+	//izmena postojeceg igraca
+		@PreAuthorize("hasRole('ADMIN')")
+		@PutMapping(value= "/{id}",consumes = MediaType.APPLICATION_JSON_VALUE)
+		public ResponseEntity<IgracDTO> update(@PathVariable Long id, @Valid @RequestBody IgracDTO igracDTO){
+
+			if(!id.equals(igracDTO.getId())) {
+				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			}
+
+			Igrac igrac = toIgrac.convert(igracDTO);
+
+			if(igrac.getKlub() == null) {
+				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			}
+
+			Igrac sacuvanIgrac = igracService.update(igrac);
+
+			return new ResponseEntity<>(toIgracDto.convert(sacuvanIgrac),HttpStatus.OK);
+		}
+
+	//brisanje postojeceg igraca
+	@PreAuthorize("hasRole('ADMIN')")
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> delete(@PathVariable Long id){
+		Igrac obrisanIgrac = igracService.delete(id);
+
+		if(obrisanIgrac != null) {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 	}
 
 }

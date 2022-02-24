@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Nav, Navbar, Button} from "react-bootstrap";
+import { Container, Nav, Navbar, Button } from "react-bootstrap";
 import {
   HashRouter as Router,
   Switch,
@@ -8,10 +8,11 @@ import {
   Link,
 } from "react-router-dom";
 import ReactDOM from "react-dom";
-import Login from "./components/authorization/Login";
 import Home from "./components/Home";
 import NotFound from "./components/NotFound";
 import { logout } from "./service/auth";
+import Login from "./components/authorization/Login";
+import Igraci from "./components/igraci/Igraci";
 
 class App extends React.Component {
   render() {
@@ -21,7 +22,7 @@ class App extends React.Component {
       return (
         <div>
           <Router>
-          <Navbar expand bg="dark" variant="dark">
+            <Navbar expand bg="dark" variant="dark">
               <Navbar.Brand as={Link} to="/">
                 Home
               </Navbar.Brand>
@@ -29,19 +30,20 @@ class App extends React.Component {
                 <Nav.Link as={Link} to="/igraci">
                   Igraci
                 </Nav.Link>
-              </Nav> 
+              </Nav>
               <Button onClick={() => logout()}>Logout</Button>
-              </Navbar>                       
-            <Container style={{ paddingTop: "10px" }}>  
-            <Switch>
+            </Navbar>
+            <Container style={{ paddingTop: "10px" }}>
+              <Switch>
                 <Route exact path="/" component={Home} />
                 <Route
                   exact
                   path="/login"
                   render={() => <Redirect to="/" />}
-                />           
+                />
+                  <Route exact path="/igraci" component={Igraci}/>                             
                 <Route component={NotFound} />
-              </Switch>           
+              </Switch>
             </Container>
           </Router>
         </div>
@@ -51,8 +53,8 @@ class App extends React.Component {
         <Container>
           <Router>
             <Switch>
-            <Route exact path="/login" component={Login} />
-              <Route render={() => <Redirect to="/login" />} />      
+              <Route exact path="/login" component={Login} />
+              <Route render={() => <Redirect to="/login" />} />
             </Switch>
           </Router>
         </Container>

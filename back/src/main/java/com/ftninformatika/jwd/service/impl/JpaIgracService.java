@@ -23,7 +23,7 @@ public class JpaIgracService implements IgracService {
 
 
 	@Override
-	public Page<Igrac> findAll(String pozicija, Long klubId, int pageNo) {
+	public Page<Igrac> findAll(Long klubId, String pozicija, int pageNo) {
 
 		if(pozicija == null) {
 			pozicija = "";

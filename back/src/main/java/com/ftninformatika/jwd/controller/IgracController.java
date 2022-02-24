@@ -40,6 +40,7 @@ public class IgracController {
 	@Autowired
 	private IgracToIgracDto toIgracDto;
 
+
 	//preuzimanje svih igraca PAGINIRANO
 	@GetMapping
 	public ResponseEntity<List<IgracDTO>> getAll(
@@ -48,7 +49,7 @@ public class IgracController {
 			@RequestParam (value = "pageNo", defaultValue = "0") int pageNo) {
 
 
-		Page<Igrac> page = igracService.findAll(pozicija, klubId, pageNo);
+		Page<Igrac> page = igracService.findAll(klubId, pozicija, pageNo);
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Total-Pages", Integer.toString(page.getTotalPages()));
@@ -80,30 +81,31 @@ public class IgracController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
+
 		Igrac sacuvanIgrac= igracService.save(igrac);
 
 		return new ResponseEntity<>(toIgracDto.convert(sacuvanIgrac), HttpStatus.CREATED);
 	}
-	
+
 	//izmena postojeceg igraca
-		@PreAuthorize("hasRole('ADMIN')")
-		@PutMapping(value= "/{id}",consumes = MediaType.APPLICATION_JSON_VALUE)
-		public ResponseEntity<IgracDTO> update(@PathVariable Long id, @Valid @RequestBody IgracDTO igracDTO){
+	@PreAuthorize("hasRole('ADMIN')")
+	@PutMapping(value= "/{id}",consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<IgracDTO> update(@PathVariable Long id, @Valid @RequestBody IgracDTO igracDTO){
 
-			if(!id.equals(igracDTO.getId())) {
-				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-			}
-
-			Igrac igrac = toIgrac.convert(igracDTO);
-
-			if(igrac.getKlub() == null) {
-				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-			}
-
-			Igrac sacuvanIgrac = igracService.update(igrac);
-
-			return new ResponseEntity<>(toIgracDto.convert(sacuvanIgrac),HttpStatus.OK);
+		if(!id.equals(igracDTO.getId())) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
+
+		Igrac igrac = toIgrac.convert(igracDTO);
+
+		if(igrac.getKlub() == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+
+		Igrac sacuvanIgrac = igracService.update(igrac);
+
+		return new ResponseEntity<>(toIgracDto.convert(sacuvanIgrac),HttpStatus.OK);
+	}
 
 	//brisanje postojeceg igraca
 	@PreAuthorize("hasRole('ADMIN')")
@@ -117,5 +119,4 @@ public class IgracController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-
 }

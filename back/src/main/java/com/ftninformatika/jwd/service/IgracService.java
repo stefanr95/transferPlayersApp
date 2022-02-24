@@ -6,8 +6,6 @@ import com.ftninformatika.jwd.model.Igrac;
 
 public interface IgracService {
 
-	Page<Igrac> findAll(String pozicija, Long klubId, int pageNo);
-
 	Igrac findOne(Long id);
 
 	Igrac save(Igrac igrac);
@@ -15,5 +13,7 @@ public interface IgracService {
 	Igrac delete(Long id);
 
 	Igrac update(Igrac igrac);
+
+	Page<Igrac> findAll(Long klubId, String pozicija, int pageNo);
 
 }

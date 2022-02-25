@@ -13,6 +13,7 @@ import NotFound from "./components/NotFound";
 import { logout } from "./service/auth";
 import Login from "./components/authorization/Login";
 import Igraci from "./components/igraci/Igraci";
+import Create from "./components/igraci/Create";
 
 class App extends React.Component {
   render() {
@@ -41,7 +42,8 @@ class App extends React.Component {
                   path="/login"
                   render={() => <Redirect to="/" />}
                 />
-                  <Route exact path="/igraci" component={Igraci}/>                             
+                  <Route exact path="/igraci" component={Igraci}/>
+                  <Route exact path="/igraci/create" component={Create}/>                              
                 <Route component={NotFound} />
               </Switch>
             </Container>

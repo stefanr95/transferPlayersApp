@@ -14,14 +14,15 @@ import { logout } from "./service/auth";
 import Login from "./components/authorization/Login";
 import Igraci from "./components/igraci/Igraci";
 import Create from "./components/igraci/Create";
+import Transfer from "./components/igraci/Transfer";
 
 class App extends React.Component {
   render() {
     const jwt = window.localStorage["jwt"];
 
     if (jwt) {
-      return (
-        <div>
+      return (   
+        <div>       
           <Router>
             <Navbar expand bg="dark" variant="dark">
               <Navbar.Brand as={Link} to="/">
@@ -43,7 +44,8 @@ class App extends React.Component {
                   render={() => <Redirect to="/" />}
                 />
                   <Route exact path="/igraci" component={Igraci}/>
-                  <Route exact path="/igraci/create" component={Create}/>                              
+                  <Route exact path="/igraci/create" component={Create}/>
+                  <Route exact path="/igraci/transfer/:id" component={Transfer}/>                              
                 <Route component={NotFound} />
               </Switch>
             </Container>

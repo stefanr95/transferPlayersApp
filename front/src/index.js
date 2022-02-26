@@ -7,6 +7,7 @@ import {
   Redirect,
   Link,
 } from "react-router-dom";
+import './index.css';
 import ReactDOM from "react-dom";
 import Home from "./components/Home";
 import NotFound from "./components/NotFound";

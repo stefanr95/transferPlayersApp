@@ -1,5 +1,5 @@
 import React from "react";
-import { Table, ButtonGroup, Button, Form } from "react-bootstrap";
+import { Table, ButtonGroup, Button, Form} from "react-bootstrap";
 import AppAxios from "../../apis/AppAxios";
 
 class Igraci extends React.Component {
@@ -10,7 +10,7 @@ class Igraci extends React.Component {
       klubId: -1,
       pozicija: "",
     };
-
+    
     this.state = {
       igraci: [],
       klubovi: [],
@@ -174,7 +174,6 @@ class Igraci extends React.Component {
             </Form.Control>
           </Form.Group>
         </Form>
-
         {window.localStorage["role"] == "ROLE_ADMIN" ? (
         <Button variant="success" onClick={() => this.goToAdd()}>
           Dodaj igraca
@@ -226,5 +225,4 @@ class Igraci extends React.Component {
     );
   }
 }
-
 export default Igraci;

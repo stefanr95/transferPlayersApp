@@ -1,11 +1,12 @@
 table {
     border: 3px solid navy;
     width: 50%;
-
-    text-align: center;
+       
+    text-align: center;   
 }
 
 h1 {
+  size: 20;
   color: burlywood;
 }
 
@@ -38,7 +39,7 @@ ul {
   
   li a {
     display: block;
-    color: white;
+    color: rgb(253, 253, 253);
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
